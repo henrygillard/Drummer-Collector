@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Drummer List</h1>
+
+{% for d in drummers %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ d.name }}</span>
+      <p>Band: {{ d.band }}</p>
+      <p>Description: {{ d.description }}</p>
+      <p>Age: {{ d.age }}</p>
+      <p>Sponsor: {{ d.sponsor }}</p>
+      
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -5,4 +5,4 @@ from .models import Sponsor
 class SponsorForm(ModelForm):
     class Meta:
         model = Sponsor
-        fields = "__all__"
+        fields = ["stick_sponsor"]

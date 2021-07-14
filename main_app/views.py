@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Drummer
 from .forms import SponsorForm
@@ -21,6 +21,14 @@ def drummers_detail(request, drummer_id):
     "sponsor_form": sponsor_form
     })
 
+def add_sponsor(request, drummer_id):
+  form = SponsorForm(request.POST)
+  if form.is_valid():
+    new_sponsor = form.save(commit=False)
+    new_sponsor.drummer_id = drummer_id
+    new_sponsor.save()
+  return redirect('detail', drummer_id=drummer_id)
+  
 class DrummerCreate(CreateView):
   model = Drummer
   fields = "__all__"

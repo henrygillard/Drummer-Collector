@@ -1,17 +1,30 @@
 from django.db import models
 
 # Create your models here.
-class Drummer:
-    def __init__(drummer, name, band, description, age, sponsor):
-        drummer.name = name
-        drummer.band = band
-        drummer.description = description
-        drummer.age = age
-        drummer.sponsor = sponsor
 
-drummers = [
-    Drummer("Chris Coleman", "Beck", "Mainly a solo artist, Chris also plays for Beck.", 38, "Meinl"),
-    Drummer("Tommy Igoe", "Tommy Igoe Big Band", "Tommy is the creator the Groove Essentials, wrote the drum book for the Lion King musical, and has over 60,000 followers on social media", 56, "Vic Firth"),
-    Drummer("Niel Peart", "Rush", "Niel Peart is considered a drumming legend, may he RIP", 67, "Remo"),
-]
+SPONSORS = (
+    ("V", "Vic Firth"),
+    ("P", "ProMark"),
+    ("I", "Innovative Percussion")
+)
+class Drummer(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    band = models.CharField(max_length=100, blank=True)
+    description = models.TextField(max_length=250, blank=True)
+    age = models.IntegerField()
+    
 
+    def __str__(self):
+        return self.name
+
+class Sponsor(models.Model):
+    stick_sponsor = models.CharField(
+        max_length=1,
+        choices=SPONSORS,
+        default="None"
+        )
+
+    drummer = models.ForeignKey(Drummer, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.get_stick_sponsor_display()}"

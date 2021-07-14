@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1><span class="teal-text">{{drummer.name}}</span> Details</h1>
+<div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ drummer.name }}</span>
+      <p>Band: {{ drummer.band }}</p>
+      <p>Description: {{ drummer.description }}</p>
+      <p>Age: {{ drummer.age }}</p>
+      <p>Drums: {{ drummer.drum_sponsor }}</p>
+      <p>Sticks: {{ drummer.stick_sponsor }}</p>
+      <p>Cymbals: {{ drummer.cymbal_sponsor }}</p>
+     <div class="card-action">
+         <a href="{% url 'drummers_update' drummer.id %}">Edit Drummer</a>
+         <a href="{% url 'drummers_delete' drummer.id %}">Delete Drummer</a>
+     </div> 
+    </div>
+  </div>
+
+{% endblock %}

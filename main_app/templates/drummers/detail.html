@@ -23,6 +23,11 @@
     </div>
   </div>
   <div class="col s6">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ sponsor_form.as_p}}
+      <input type="submit" class="btn" value="Add Sponsor">
+    </form>
     <h4>Sponsors</h4>
     <table class="striped">
       <thead>
@@ -38,4 +43,8 @@
     </table>
   </div>
 </div>
+<script>
+  const stickEl = document.getElementById('id_stick_sponsor');
+  M.FormSelect.init(stickEl);
+</script>
 {% endblock %}

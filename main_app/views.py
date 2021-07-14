@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Drummer
+from .forms import SponsorForm
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -14,7 +15,11 @@ def drummers_index(request):
 
 def drummers_detail(request, drummer_id):
   drummer = Drummer.objects.get(id=drummer_id)
-  return render(request, "drummers/detail.html", { "drummer": drummer})
+  sponsor_form = SponsorForm()
+  return render(request, "drummers/detail.html", { 
+    "drummer": drummer, 
+    "sponsor_form": sponsor_form
+    })
 
 class DrummerCreate(CreateView):
   model = Drummer

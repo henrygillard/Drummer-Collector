@@ -57,7 +57,29 @@
         </div>
       {% endfor %}
     {% else %}
-      <h5>No Drums in the kit :(</h5>
+      <h5>No Drums in the kit</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available Drums</h3>
+    {% if drums.count %}
+      {% for drum in drums.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <span>{{ drum.name }}</span>
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_drum' drummer.id drum.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{drummer.name}} Already Has All Drums Available</h5>
     {% endif %}
   </div>
 </div>

@@ -37,7 +37,7 @@ class DrumList(ListView):
 
 class DrummerCreate(CreateView):
   model = Drummer
-  fields = "__all__"
+  fields = ["name", "band", "description", "age"]
   success_url = "/drummers/"
     
 class DrummerUpdate(UpdateView):
@@ -49,3 +49,7 @@ class DrummerUpdate(UpdateView):
 class DrummerDelete(DeleteView):
   model = Drummer
   success_url = "/drummers/"
+
+def assoc_drum(request, drummer_id, drum_id):
+  Drummer.objects.get(id=drummer_id).drums.add(drum_id)
+  return redirect('detail', drummer_id=drummer_id)

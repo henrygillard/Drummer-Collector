@@ -11,7 +11,9 @@ urlpatterns = [
     path("drummers/<int:pk>/update", views.DrummerUpdate.as_view(), name="drummers_update"),
     path("drummers/<int:pk>/delete", views.DrummerDelete.as_view(), name="drummers_delete"),
     path("drummers/<int:drummer_id>/add_sponsor/", views.add_sponsor, name="add_sponsor"),
+    path("drummers/<int:drummer_id>/assoc_drum/<int:drum_id>/", views.assoc_drum, name="assoc_drum"),
     path("drums/", views.DrumList.as_view(), name="drums_index"),
-    
+
+
 
 ]

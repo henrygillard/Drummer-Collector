@@ -1,17 +1,33 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
+from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 
 SPONSORS = (
     ("V", "Vic Firth"),
     ("P", "ProMark"),
-    ("I", "Innovative Percussion")
+    ("I", "Innovative Percussion"),
+    ("Z", "Zildjian")
+
 )
+
+class Drum(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('drums_detail', kwargs={'pk': self.id})
+
 class Drummer(models.Model):
     name = models.CharField(max_length=100, blank=True)
     band = models.CharField(max_length=100, blank=True)
     description = models.TextField(max_length=250, blank=True)
     age = models.IntegerField()
+    drums = models.ManyToManyField(Drum)
     
 
     def __str__(self):

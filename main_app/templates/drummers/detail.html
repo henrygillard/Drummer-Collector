@@ -42,6 +42,24 @@
       </tbody>
     </table>
   </div>
+  <hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ drummer.name }}'s Kit</h3>
+    {% if drummer.drums.count %}
+      {% for drum in drummer.drums.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+               {{ drum.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Drums in the kit :(</h5>
+    {% endif %}
+  </div>
 </div>
 <script>
   const stickEl = document.getElementById('id_stick_sponsor');

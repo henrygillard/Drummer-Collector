@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Drummer
+from django.views.generic import ListView
 from .forms import SponsorForm
+from .models import Drummer, Drum, Sponsor 
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -15,10 +16,12 @@ def drummers_index(request):
 
 def drummers_detail(request, drummer_id):
   drummer = Drummer.objects.get(id=drummer_id)
+  drums_drummer_doesnt_have = Drum.objects.exclude(id__in=drummer.drums.all().values_list('id'))
   sponsor_form = SponsorForm()
   return render(request, "drummers/detail.html", { 
     "drummer": drummer, 
-    "sponsor_form": sponsor_form
+    "sponsor_form": sponsor_form,
+    "drums": drums_drummer_doesnt_have,
     })
 
 def add_sponsor(request, drummer_id):
@@ -28,7 +31,10 @@ def add_sponsor(request, drummer_id):
     new_sponsor.drummer_id = drummer_id
     new_sponsor.save()
   return redirect('detail', drummer_id=drummer_id)
-  
+
+class DrumList(ListView):
+  model = Drum
+
 class DrummerCreate(CreateView):
   model = Drummer
   fields = "__all__"
